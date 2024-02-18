@@ -39,7 +39,7 @@ export default function Position() {
   const getCityName = async (lat, lon) => {
     
     const geocodeAPI = 'http://api.openweathermap.org/geo/1.0/reverse?'; // Correct API endpoint for reverse geocoding
-    const apiKey = 'Your own api key'; // Replace with your actual API key
+    const apiKey = 'Your api key'; // Replace with your actual API key
   
     try {
       // Ensure lat and lon are numbers and not undefined or null
@@ -65,25 +65,28 @@ export default function Position() {
     }
   };
 
-  return (
-    <View style={styles.container}>
-      {!isLoading ? (
-        <>
-          <Text style={styles.header}>Current Weather</Text>
-          <View style={styles.leftAlignedContainer}>
-          <Text style={styles.coords}>
-            {latitude.toFixed(3)}, {longitude.toFixed(3)} {cityName && `- ${cityName}`}
-          </Text>
-          <Text style={styles.message}>Location retrieved</Text>
+ return (
+  <View style={styles.container}>
+    {!isLoading ? (
+      <>
+        <Text style={styles.header}>Current Weather</Text>
+        <View style={styles.leftAlignedContainer}>
+          {latitude && longitude && (
+            <>
+              <Text style={styles.coords}>
+                {latitude.toFixed(3)}, {longitude.toFixed(3)}{cityName && ` - ${cityName}`}
+              </Text>
+              <Text style={styles.message}>Location retrieved</Text>
+            </>
+          )}
           <Weather latitude={latitude} longitude={longitude} />
-          </View>
-        </>
-      ) : (
-        <Text style={styles.message}>{message}</Text>
-      )}
-      
-    </View>
-  );
+        </View>
+      </>
+    ) : (
+      <Text style={styles.message}>{message}</Text>
+    )}
+  </View>
+);
 }
 
 const styles = StyleSheet.create({
